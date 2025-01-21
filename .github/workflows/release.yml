@@ -95,3 +95,8 @@ jobs:
           tag: ${{ steps.changelog.outputs.tag }}
           name: ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
+      
+      # delete temporary branch
+      - name: delete temporary branch
+        if: steps.changelog.outputs.skipped == 'false'
+        run: git branch -D release-from-${{ github.sha }}
