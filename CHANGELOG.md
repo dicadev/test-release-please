@@ -1,3 +1,12 @@
+## [1.0.5](https://github.com/dicadev/test-release-please/compare/v1.0.4...v1.0.5) (2025-01-21)
+
+
+### Bug Fixes
+
+* delete temporary locally and remote ([d204371](https://github.com/dicadev/test-release-please/commit/d20437185823b014148de3b3e4bf458a44861a77))
+
+
+
 ## [1.0.4](https://github.com/dicadev/test-release-please/compare/v1.0.3...v1.0.4) (2025-01-21)
 
 
@@ -31,20 +40,6 @@
 ### Bug Fixes
 
 * test PATCH ([ae2b4c6](https://github.com/dicadev/test-release-please/commit/ae2b4c6841ac5738d81529fd0e4dc94ea309b1de))
-
-
-
-# [1.0.0](https://github.com/dicadev/test-release-please/compare/v0.4.0...v1.0.0) (2025-01-21)
-
-
-### Bug Fixes
-
-* test ([8c2ded0](https://github.com/dicadev/test-release-please/commit/8c2ded0581dfc63a887d91e8a565d84c42b0357f))
-
-
-### BREAKING CHANGES
-
-* Test
 
 
 
