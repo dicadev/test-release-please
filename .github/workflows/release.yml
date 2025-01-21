@@ -100,6 +100,8 @@ jobs:
       - name: switch back to main
         run: git checkout main
       
-      # delete temporary branch
+      # delete temporary branch (both locally and remotely)
       - name: delete temporary branch
-        run: git branch -D release-from-${{ github.sha }}
+        run: |
+          git branch -D release-from-${{ github.sha }}
+          git push origin --delete release-from-${{ github.sha }}
