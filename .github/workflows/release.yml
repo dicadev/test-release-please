@@ -33,8 +33,9 @@ jobs:
           token: ${{ secrets.CHANGELOG_RELEASE }}
           release-type: node
       
-      # switch to the temporary branch
+      # Only perform branch operations if a PR was created
       - name: switch to new branch
+        if: ${{ steps.release-please.outputs.pr_created }}
         run: git checkout release-please--branches--main--components--my-app
 
       - name: merge PR with release info
@@ -44,7 +45,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
 
-      # release info is now in main so we can continue as before
       - name: create release with last commit
         if: ${{ steps.release-please.outputs.pr_created }}
         uses: ncipollo/release-action@v1
@@ -54,12 +54,13 @@ jobs:
           name: ${{ steps.release-please.outputs.tag }}
           body: ${{ steps.release-please.outputs.clean_changelog }}
       
-      # switch back to main before deleting the temporary branch
+      # Only switch back and cleanup if we actually switched branches
       - name: switch back to main
+        if: ${{ steps.release-please.outputs.pr_created }}
         run: git checkout main
       
-      # delete temporary branch (both locally and remotely)
       - name: delete temporary branch
+        if: ${{ steps.release-please.outputs.pr_created }}
         run: |
           git branch -D release-please--branches--main--components--my-app
           git push origin --delete release-please--branches--main--components--my-app
