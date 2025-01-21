@@ -1,89 +1,14 @@
-# NIO: Not in original
-
 name: Releases
 
 on:
   push:
     branches:
       - main
-    # paths-ignore:
-    #   - "data/**"
 
-# concurrency:
-#   group: "main-branch"
 
-# NIO
 permissions:
   contents: write
   pull-requests: write
-
-# NIO
-# jobs:
-#   release-please:
-#     runs-on: ubuntu-latest
-#     outputs:
-#       tag_name: ${{ steps.release-please.outputs.tag_name }}
-#       release_created: ${{ steps.release-please.outputs.release_created }}
-#     steps:
-#       - uses: googleapis/release-please-action@v4
-#         id: release
-#         with:
-#           token: ${{ secrets.CHANGELOG_RELEASE }}
-#           config-file: release-please-config.json
-#           manifest-file: .release-please-manifest.json
-      
-
-#       - name: Print release outputs for debugging
-#         continue-on-error: true
-#         run: |
-#           echo "Release outputs:"
-#           echo '${{ toJson(steps.release.outputs) }}'
-
-#       - name: Checkout
-#         id: checkout
-#         if: ${{ steps.release.outputs.releases_created }}
-#         uses: actions/checkout@v4
-
-#       # Create release if release-please created one
-#       - name: create release with last commit
-#         if: ${{ steps.release.outputs.releases_created }}
-#         uses: ncipollo/release-action@v1
-#         with:
-#           token: ${{ secrets.CHANGELOG_RELEASE }}
-#           tag: ${{ steps.release.outputs.tag_name }}
-#           name: ${{ steps.release.outputs.tag_name }}
-#           body: ${{ steps.release.outputs.body }}
-      
-      # # switch to the temporary branch
-      # - name: switch to new branch
-      #   run: git checkout release-please--branches--main--components--my-app
-
-      # - name: merge PR with release info
-      #   id: merge-pr
-      #   run: gh pr merge --admin --merge --subject 'Merge release info'
-      #   env:
-      #     GH_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
-
-      # # Only create release if a release was created by release-please
-      # - name: create release with last commit
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     token: ${{ secrets.CHANGELOG_RELEASE }}
-      #     tag: ${{ steps.release-please.outputs.tag_name }}
-      #     name: ${{ steps.release-please.outputs.tag_name }}
-      #     body: ${{ steps.release-please.outputs.body }}
-
-      # # switch back to main before deleting the temporary branch
-      # - name: switch back to main
-      #   run: git checkout main
-      
-      # # delete temporary branch (both locally and remotely)
-      # - name: delete temporary branch
-      #   run: |
-      #     git branch -D release-please--branches--main--components--my-app
-      #     git push origin --delete release-please--branches--main--components--my-app
-
-      
 
 jobs:
   changelog:
