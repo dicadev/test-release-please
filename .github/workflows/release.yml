@@ -67,7 +67,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.CHANGELOG_RELEASE }}
-          version-file: "./package.json,./package-lock.json,./config/app.json"
+          version-file: "./package.json,./package-lock.json" # ,./config/app.json
           git-branch: "release-from-${{ github.sha }}"
           skip-git-pull: true
 
