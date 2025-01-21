@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/dicadev/test-release-please/compare/v1.0.0...v1.0.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* test PATCH ([ae2b4c6](https://github.com/dicadev/test-release-please/commit/ae2b4c6841ac5738d81529fd0e4dc94ea309b1de))
+
+
+
 # [1.0.0](https://github.com/dicadev/test-release-please/compare/v0.4.0...v1.0.0) (2025-01-21)
 
 
