@@ -18,7 +18,7 @@ export default function Home() {
               Learn how to build modern web applications with Next.js 14 and its powerful features including server components, app router, and more.
             </p>
             <div className="flex gap-4 text-sm text-gray-500">
-              <span>December 1, 2023</span>
+              <span>January 21, 2025</span>
               <span>5 min read</span>
               <span>#nextjs #webdev</span>
             </div>
