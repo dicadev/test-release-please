@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/dicadev/test-release-please/compare/v0.3.0...v0.4.0) (2025-01-21)
+
+
+### Features
+
+* test ([2cf50c8](https://github.com/dicadev/test-release-please/commit/2cf50c835a625c23b3f6b0db2739ac46197ae323))
+
+
+
 # [0.3.0](https://github.com/dicadev/test-release-please/compare/v0.2.0...v0.3.0) (2025-01-21)
 
 
