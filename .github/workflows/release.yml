@@ -44,26 +44,15 @@ jobs:
         if: ${{ steps.release.outputs.releases_created }}
         uses: actions/checkout@v4
 
-      - name: Setup Node Env
-        id: setup-node-env
+      # Create release if release-please created one
+      - name: create release with last commit
         if: ${{ steps.release.outputs.releases_created }}
-        uses: ./.github/actions/setup-node-env
+        uses: ncipollo/release-action@v1
         with:
-          node-version: 18
-          cache-path: node_modules
-          cache-key: "${{hashFiles('package-lock.json')}}"
-          project: .
-
-      # - run: npm test -- a --watchAll=false
-      - name: Build and Upload Release
-        if: ${{ steps.release.outputs.releases_created }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
-        run: |
-          npm ci
-          npm run build
-          zip -r build.zip build
-          gh release upload ${{ steps.release.outputs.tag_name }} build.zip
+          token: ${{ secrets.CHANGELOG_RELEASE }}
+          tag: ${{ steps.release.outputs.tag_name }}
+          name: ${{ steps.release.outputs.tag_name }}
+          body: ${{ steps.release.outputs.body }}
       
       # # switch to the temporary branch
       # - name: switch to new branch
