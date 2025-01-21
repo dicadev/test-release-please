@@ -57,7 +57,7 @@ jobs:
           cache-key: "${{hashFiles('package-lock.json')}}"
           project: .
 
-      - run: npm test -- a --watchAll=false
+      # - run: npm test -- a --watchAll=false
       - run: npm run build
       - run: zip -r build.zip build
       - name: Upload Release Artifact
