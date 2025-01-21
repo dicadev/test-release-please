@@ -1,3 +1,14 @@
+## [3.0.1](https://github.com/dicadev/test-release-please/compare/v3.0.0...v3.0.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* **home:** test other MINOR ([afe3132](https://github.com/dicadev/test-release-please/commit/afe31321095ad0f92a9419c6135094835c5a04e5))
+* **home:** test other MINOR 2 ([a11b332](https://github.com/dicadev/test-release-please/commit/a11b332f9de2ffd2e2c09d5ea78641db1a50cbe2))
+* **home:** test other MINOR 3 ([f6c57e4](https://github.com/dicadev/test-release-please/commit/f6c57e4c0e552710f344fbbe2e10899686af6711))
+
+
+
 # [3.0.0](https://github.com/dicadev/test-release-please/compare/v2.2.0...v3.0.0) (2025-01-21)
 
 
