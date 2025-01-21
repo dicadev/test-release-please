@@ -5,7 +5,7 @@ export default function Home() {
         <header className="space-y-4">
           <h1 className="text-4xl font-bold">My Personal Blog</h1>
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            Welcome to my corner of the internet where I share my thoughts on technology, programming, and life
+            Welcome to my corner of the internet where I share my thoughts on technology, programming, and life.
           </p>
         </header>
 
