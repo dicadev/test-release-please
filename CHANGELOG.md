@@ -8,6 +8,17 @@
 
 
 
+## [2.0.0](https://github.com/dicadev/test-release-please/compare/v1.2.0...v2.0.0) (2025-01-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* test Release Please 6
+
+### Features
+
+* test Release Please 6 ([7953f96](https://github.com/dicadev/test-release-please/commit/7953f9696b408a2ca1a5c6c7c615d3354ec4e197))
+
 ## [1.2.0](https://github.com/dicadev/test-release-please/compare/v1.1.0...v1.2.0) (2025-01-21)
 
 
