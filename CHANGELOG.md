@@ -1,3 +1,17 @@
+# [1.0.0](https://github.com/dicadev/test-release-please/compare/v0.4.0...v1.0.0) (2025-01-21)
+
+
+### Bug Fixes
+
+* test ([8c2ded0](https://github.com/dicadev/test-release-please/commit/8c2ded0581dfc63a887d91e8a565d84c42b0357f))
+
+
+### BREAKING CHANGES
+
+* Test
+
+
+
 # [0.4.0](https://github.com/dicadev/test-release-please/compare/v0.3.0...v0.4.0) (2025-01-21)
 
 
