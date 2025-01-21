@@ -147,6 +147,7 @@ jobs:
       
       # delete temporary branch (both locally and remotely)
       - name: delete temporary branch
+        continue-on-error: true
         run: |
           git branch -D release-from-${{ github.sha }}
           git push origin --delete release-from-${{ github.sha }}
