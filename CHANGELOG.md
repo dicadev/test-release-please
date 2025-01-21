@@ -8,6 +8,14 @@
 
 
 
+## [1.2.0](https://github.com/dicadev/test-release-please/compare/v1.1.0...v1.2.0) (2025-01-21)
+
+
+### Features
+
+* test Release Please 1 ([81d6a51](https://github.com/dicadev/test-release-please/commit/81d6a515700ce6ee7a484a4207b6ab4cf548abed))
+* test Release Please 2 ([ccaa5ca](https://github.com/dicadev/test-release-please/commit/ccaa5caadcb64a482bbef125c00cf8f1c2c65c60))
+
 ## [1.0.5](https://github.com/dicadev/test-release-please/compare/v1.0.4...v1.0.5) (2025-01-21)
 
 
@@ -41,6 +49,3 @@
 ### Bug Fixes
 
 * delete temporary branch ([90fc6b8](https://github.com/dicadev/test-release-please/commit/90fc6b8178fc86bfc177d12cdbb48852795a08f8))
-
-
-
