@@ -22,6 +22,11 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      # check out the repository with all releases
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+  
       - uses: googleapis/release-please-action@v4
         with:
           token: ${{ secrets.CHANGELOG_RELEASE }}
