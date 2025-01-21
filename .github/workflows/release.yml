@@ -29,11 +29,8 @@ jobs:
         id: release
         with:
           token: ${{ secrets.CHANGELOG_RELEASE }}
-          release-type: node
-          include-component-in-tag: true
-          include-v-in-tag: true
-          tag-separator: "@"
-          separate-pull-requests: true
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
       
 
       - name: Print release outputs for debugging
@@ -44,12 +41,12 @@ jobs:
 
       - name: Checkout
         id: checkout
-        if: ${{needs.release-please.outputs.release_created}}
+        if: ${{ steps.release.outputs.releases_created }}
         uses: actions/checkout@v4
 
       - name: Setup Node Env
         id: setup-node-env
-        if: ${{needs.release-please.outputs.release_created}}
+        if: ${{ steps.release.outputs.releases_created }}
         uses: ./.github/actions/setup-node-env
         with:
           node-version: 18
@@ -58,12 +55,15 @@ jobs:
           project: .
 
       # - run: npm test -- a --watchAll=false
-      - run: npm run build
-      - run: zip -r build.zip build
-      - name: Upload Release Artifact
+      - name: Build and Upload Release
+        if: ${{ steps.release.outputs.releases_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
-        run: gh release upload ${{ needs.release-please.outputs.tag_name }} build.zip
+        run: |
+          npm ci
+          npm run build
+          zip -r build.zip build
+          gh release upload ${{ steps.release.outputs.tag_name }} build.zip
       
       # # switch to the temporary branch
       # - name: switch to new branch
