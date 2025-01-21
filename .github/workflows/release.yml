@@ -96,6 +96,11 @@ jobs:
           name: ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
       
+      # switch back to main before deleting the temporary branch
+      - name: switch back to main
+        if: steps.changelog.outputs.skipped == 'false'
+        run: git checkout main
+      
       # delete temporary branch
       - name: delete temporary branch
         if: steps.changelog.outputs.skipped == 'false'
