@@ -18,41 +18,41 @@ permissions:
   pull-requests: write
 
 # NIO
-jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      tag_name: ${{ steps.release-please.outputs.tag_name }}
-      release_created: ${{ steps.release-please.outputs.release_created }}
-    steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
-        with:
-          token: ${{ secrets.CHANGELOG_RELEASE }}
-          config-file: release-please-config.json
-          manifest-file: .release-please-manifest.json
+# jobs:
+#   release-please:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       tag_name: ${{ steps.release-please.outputs.tag_name }}
+#       release_created: ${{ steps.release-please.outputs.release_created }}
+#     steps:
+#       - uses: googleapis/release-please-action@v4
+#         id: release
+#         with:
+#           token: ${{ secrets.CHANGELOG_RELEASE }}
+#           config-file: release-please-config.json
+#           manifest-file: .release-please-manifest.json
       
 
-      - name: Print release outputs for debugging
-        continue-on-error: true
-        run: |
-          echo "Release outputs:"
-          echo '${{ toJson(steps.release.outputs) }}'
+#       - name: Print release outputs for debugging
+#         continue-on-error: true
+#         run: |
+#           echo "Release outputs:"
+#           echo '${{ toJson(steps.release.outputs) }}'
 
-      - name: Checkout
-        id: checkout
-        if: ${{ steps.release.outputs.releases_created }}
-        uses: actions/checkout@v4
+#       - name: Checkout
+#         id: checkout
+#         if: ${{ steps.release.outputs.releases_created }}
+#         uses: actions/checkout@v4
 
-      # Create release if release-please created one
-      - name: create release with last commit
-        if: ${{ steps.release.outputs.releases_created }}
-        uses: ncipollo/release-action@v1
-        with:
-          token: ${{ secrets.CHANGELOG_RELEASE }}
-          tag: ${{ steps.release.outputs.tag_name }}
-          name: ${{ steps.release.outputs.tag_name }}
-          body: ${{ steps.release.outputs.body }}
+#       # Create release if release-please created one
+#       - name: create release with last commit
+#         if: ${{ steps.release.outputs.releases_created }}
+#         uses: ncipollo/release-action@v1
+#         with:
+#           token: ${{ secrets.CHANGELOG_RELEASE }}
+#           tag: ${{ steps.release.outputs.tag_name }}
+#           name: ${{ steps.release.outputs.tag_name }}
+#           body: ${{ steps.release.outputs.body }}
       
       # # switch to the temporary branch
       # - name: switch to new branch
@@ -85,77 +85,77 @@ jobs:
 
       
 
-# jobs:
-#   changelog:
-#     # if: github.repository == 'EddieHubCommunity/BioDrop'
-#     runs-on: ubuntu-latest
+jobs:
+  changelog:
+    # if: github.repository == 'EddieHubCommunity/BioDrop'
+    runs-on: ubuntu-latest
 
-#     steps:
-#       # check out the repository with all releases
-#       - uses: actions/checkout@v4
-#         with:
-#           fetch-depth: 0
+    steps:
+      # check out the repository with all releases
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
   
 
-#       # Create a temporary, uniquely named branch to push release info to
-#       - name: create temporary branch
-#         run: git branch "release-from-${{ github.sha }}" "${{ github.sha }}"
+      # Create a temporary, uniquely named branch to push release info to
+      - name: create temporary branch
+        run: git branch "release-from-${{ github.sha }}" "${{ github.sha }}"
 
-#       # switch to the temporary branch
-#       - name: switch to new branch
-#         run: git checkout release-from-${{ github.sha }}
+      # switch to the temporary branch
+      - name: switch to new branch
+        run: git checkout release-from-${{ github.sha }}
 
-#       # # update app config with version
-#       # - name: get-npm-version
-#       #   id: package-version
-#       #   run: |
-#       #     LF_VERSION=$(cat package.json | jq -r '.version')
-#       #     echo "current-version=$LF_VERSION" >> "$GITHUB_OUTPUT"
-#       # - name: update app config
-#       #   run: sed -i 's/0.0.0/${{ steps.package-version.outputs.current-version}}/g' config/app.json
+      # # update app config with version
+      # - name: get-npm-version
+      #   id: package-version
+      #   run: |
+      #     LF_VERSION=$(cat package.json | jq -r '.version')
+      #     echo "current-version=$LF_VERSION" >> "$GITHUB_OUTPUT"
+      # - name: update app config
+      #   run: sed -i 's/0.0.0/${{ steps.package-version.outputs.current-version}}/g' config/app.json
 
-#       # create release info and push it upstream
-#       - name: conventional Changelog Action
-#         id: changelog
-#         uses: TriPSs/conventional-changelog-action@v5
-#         with:
-#           github-token: ${{ secrets.CHANGELOG_RELEASE }}
-#           version-file: "./package.json,./package-lock.json" # ,./config/app.json
-#           git-branch: "release-from-${{ github.sha }}"
-#           skip-git-pull: true
+      # create release info and push it upstream
+      - name: conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v5
+        with:
+          github-token: ${{ secrets.CHANGELOG_RELEASE }}
+          version-file: "./package.json,./package-lock.json" # ,./config/app.json
+          git-branch: "release-from-${{ github.sha }}"
+          skip-git-pull: true
 
-#       # create PR using GitHub CLI
-#       - name: create PR with release info
-#         if: steps.changelog.outputs.skipped == 'false'
-#         id: create-pr
-#         run: gh pr create --base main --head release-from-${{ github.sha }} --title 'Merge new release into main' --body 'Created by Github action'
-#         env:
-#           GH_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
+      # create PR using GitHub CLI
+      - name: create PR with release info
+        if: steps.changelog.outputs.skipped == 'false'
+        id: create-pr
+        run: gh pr create --base main --head release-from-${{ github.sha }} --title 'Merge new release into main' --body 'Created by Github action'
+        env:
+          GH_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
 
-#       # merge PR using GitHub CLI
-#       - name: merge PR with release info
-#         if: steps.changelog.outputs.skipped == 'false'
-#         id: merge-pr
-#         run: gh pr merge --admin --merge --subject 'Merge release info'
-#         env:
-#           GH_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
+      # merge PR using GitHub CLI
+      - name: merge PR with release info
+        if: steps.changelog.outputs.skipped == 'false'
+        id: merge-pr
+        run: gh pr merge --admin --merge --subject 'Merge release info'
+        env:
+          GH_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
 
-#       # release info is now in main so we can continue as before
-#       - name: create release with last commit
-#         if: steps.changelog.outputs.skipped == 'false'
-#         uses: ncipollo/release-action@v1
-#         with:
-#           token: ${{ secrets.CHANGELOG_RELEASE }}
-#           tag: ${{ steps.changelog.outputs.tag }}
-#           name: ${{ steps.changelog.outputs.tag }}
-#           body: ${{ steps.changelog.outputs.clean_changelog }}
+      # release info is now in main so we can continue as before
+      - name: create release with last commit
+        if: steps.changelog.outputs.skipped == 'false'
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.CHANGELOG_RELEASE }}
+          tag: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
       
-#       # switch back to main before deleting the temporary branch
-#       - name: switch back to main
-#         run: git checkout main
+      # switch back to main before deleting the temporary branch
+      - name: switch back to main
+        run: git checkout main
       
-#       # delete temporary branch (both locally and remotely)
-#       - name: delete temporary branch
-#         run: |
-#           git branch -D release-from-${{ github.sha }}
-#           git push origin --delete release-from-${{ github.sha }}
+      # delete temporary branch (both locally and remotely)
+      - name: delete temporary branch
+        run: |
+          git branch -D release-from-${{ github.sha }}
+          git push origin --delete release-from-${{ github.sha }}
