@@ -43,15 +43,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
 
-      # release info is now in main so we can continue as before
+      # Only create release if a release was created by release-please
       - name: create release with last commit
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.CHANGELOG_RELEASE }}
-          tag: ${{ steps.release-please.outputs.tag }}
-          name: ${{ steps.release-please.outputs.tag }}
-          body: ${{ steps.release-please.outputs.clean_changelog }}
-      
+          tag: ${{ steps.release-please.outputs.tag_name }}
+          name: ${{ steps.release-please.outputs.tag_name }}
+          body: ${{ steps.release-please.outputs.body }}
+
       # switch back to main before deleting the temporary branch
       - name: switch back to main
         run: git checkout main
